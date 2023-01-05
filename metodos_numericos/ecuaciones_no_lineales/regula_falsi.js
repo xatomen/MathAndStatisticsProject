@@ -4,8 +4,8 @@ let a;
 let b;
 let n;
 let x;
-let x_var;
 let dec;
+let x_var;
 let e;
 let f_a;
 let f_b;
@@ -29,7 +29,7 @@ function evaluar(x){
     return eval(funcion);
 }
 
-function executeBiseccion(){
+function executeRegulaFalsi(){
     getData();
     n=0;
 
@@ -58,9 +58,9 @@ function executeBiseccion(){
     let heading_6 = document.createElement('th');
     heading_6.innerHTML = "f(b)";
     let heading_7 = document.createElement('th');
-    heading_7.innerHTML = "f(x)";
-    let heading_8 = document.createElement('th');
-    heading_8.innerHTML = "(b-a)/2**n";
+    heading_7.innerHTML = "|f(x)|";
+    // let heading_8 = document.createElement('th');
+    // heading_8.innerHTML = "(b-a)/2**n";
 
     row_1.appendChild(heading_1);
     row_1.appendChild(heading_2);
@@ -69,7 +69,7 @@ function executeBiseccion(){
     row_1.appendChild(heading_5);
     row_1.appendChild(heading_6);
     row_1.appendChild(heading_7);
-    row_1.appendChild(heading_8);
+    // row_1.appendChild(heading_8);
     thead.appendChild(row_1);
 
     console.log("n\ta\tb\tx_var\tf(a)\tf(b)\tf(x)\t(b-a)/2^n")
@@ -79,12 +79,14 @@ function executeBiseccion(){
         a = Number(a.toFixed(dec));
         b = Number(b.toFixed(dec));
 
-        x_var=((a+b)/2);
-        x_var=Number(x_var.toFixed(dec));
-
         f_a = Number(evaluar(a).toFixed(dec));
         f_b = Number(evaluar(b).toFixed(dec));
+
+        x_var=a-((b-a)*f_a)/(f_b-f_a);
+        x_var=Number(x_var.toFixed(dec));
+
         f_x = Number(evaluar(x_var).toFixed(dec));
+        
         console.log(x_var);
         console.log(n,"|",a,"|",b,"|",x_var,"|",f_a,"|",f_b,"|",f_x,"|",(b-a)/2);
         let row_n = document.createElement('tr');
@@ -110,8 +112,8 @@ function executeBiseccion(){
         let row_n_data_7 = document.createElement('td');
         row_n_data_7.innerHTML = f_x;
 
-        let row_n_data_8 = document.createElement('td');
-        row_n_data_8.innerHTML = Number(((b-a)/2).toFixed(dec));
+        // let row_n_data_8 = document.createElement('td');
+        // row_n_data_8.innerHTML = (b-a)/2;
 
         row_n.appendChild(row_n_data_1);
         row_n.appendChild(row_n_data_2);
@@ -120,7 +122,7 @@ function executeBiseccion(){
         row_n.appendChild(row_n_data_5);
         row_n.appendChild(row_n_data_6);
         row_n.appendChild(row_n_data_7);
-        row_n.appendChild(row_n_data_8);
+        // row_n.appendChild(row_n_data_8);
         tbody.appendChild(row_n);
         
         if(f_a*f_x<0){
@@ -131,12 +133,8 @@ function executeBiseccion(){
             a=x_var;
             b=b;
         }
-        if(f_x==0){break;}
+        if(f_x==0 || Math.abs(f_x)<error){break;}
     }
     
     return console.log("Resultado: x=",x_var);
-}
-
-function ln(x){
-    return Math.log(x);
 }
