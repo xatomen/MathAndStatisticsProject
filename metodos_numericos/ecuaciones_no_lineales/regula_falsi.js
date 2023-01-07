@@ -32,16 +32,18 @@ function evaluar(x){
 function executeRegulaFalsi(){
     getData();
     n=0;
-
+    let div = document.createElement('div');
     let table = document.createElement('table');
     let thead = document.createElement('thead');
+    thead.className="card-header";
     let tbody = document.createElement('tbody');
+    tbody.className="card-body";
     
+    div.appendChild(table);
     table.appendChild(thead);
     table.appendChild(tbody);
     
-    // Adding the entire table to the body tag
-    document.getElementById('body').appendChild(table);
+    document.getElementById('tabla').appendChild(table);
 
     let row_1 = document.createElement('tr');
 
